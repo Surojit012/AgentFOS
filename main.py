@@ -12,6 +12,7 @@ FastAPI application exposing 6 endpoints:
 
 import re
 import json
+import os
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -73,10 +74,7 @@ allocation_engine = AllocationEngine()
 
 @app.get("/")
 async def root():
-    return {
-        "name": "AgentFOS",
-        "tagline": "Every other agent knows what to buy. AgentFOS decides if it should.",
-    }
+    return FileResponse(os.path.join(_FRONTEND_DIR, "index.html"))
 
 
 @app.get("/health")
@@ -308,7 +306,6 @@ async def agent_orchestrate(request: AgentRequest) -> AgentResponse:
 
 # ── Frontend ─────────────────────────────────────────────────────────────────
 
-import os
 _FRONTEND_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "frontend")
 
 
