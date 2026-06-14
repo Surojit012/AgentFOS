@@ -180,7 +180,7 @@ async function sendRequest() {
         }
     } catch (err) {
         const elapsed = Math.round(performance.now() - startTime);
-        responseBody.textContent = `Error: ${err.message}\n\nMake sure your AgentFOS server is running:\n  uvicorn main:app --host 0.0.0.0 --port 8000`;
+        responseBody.textContent = `Error: ${err.message}\n\nMake sure the API Base URL points to a live AgentFOS backend.`;
         responseStatus.textContent = `ERR • ${elapsed}ms`;
         responseStatus.className = "pg-status error";
         if (currentEndpoint === "allocate") {
