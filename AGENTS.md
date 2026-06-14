@@ -1,27 +1,38 @@
 # AgentFOS — Build Rules
 
 ## What We Are Building
-RealFi Yield Intelligence Network — "Bloomberg Terminal for RWAs, 
-callable by AI agents." A Financial Operating System that lets 
-autonomous agents discover RWA opportunities, evaluate risk, enforce 
-spending policies, and generate capital allocation decisions on Pharos.
+
+AgentFOS is the financial decision layer for autonomous agents.
+
+It is not a chatbot, not a trading bot, and not a dashboard. It is deterministic infrastructure that lets agents:
+
+- discover RWA opportunities
+- evaluate risk with transparent math
+- enforce capital allocation policy
+- produce allocation recommendations
+- write a verifiable on-chain proof on Pharos
 
 ## Non-Negotiable Rules
-- NO database (no Postgres, no SQLAlchemy, no Redis)
+
+- NO database of any kind: no Postgres, no SQLAlchemy, no Redis
 - NO LangChain, NO CrewAI, NO vector DB
-- NO placeholder functions, NO TODO comments
-- NO stubs — every function must have real working logic
-- Mock fallback on EVERY external API call — demo must never crash
-- Pydantic validates every input and output
+- NO placeholder functions
+- NO TODO comments
+- NO stubs: every function must have real working logic
+- Mock fallback on every external API call so the demo never crashes
+- Pydantic validates every input and every output
 - One responsibility per file
-- fredapi for FRED Treasury data (not fedfred)
+- Use `fredapi` for FRED Treasury data, not `fedfred`
 
 ## Stack
-fastapi, uvicorn[standard], httpx, pandas, numpy, pydantic,
-pydantic-settings, fredapi, yfinance, beautifulsoup4, lxml,
-anthropic, python-dotenv, aiohttp
 
-## Project Structure (DO NOT DEVIATE)
+`fastapi`, `uvicorn[standard]`, `httpx`, `pandas`, `numpy`, `pydantic`, `pydantic-settings`, `fredapi`, `yfinance`, `beautifulsoup4`, `lxml`, `anthropic`, `python-dotenv`, `aiohttp`
+
+## Project Structure
+
+Do not introduce new top-level architecture.
+
+```text
 AgentFOS/
 ├── main.py
 ├── config.py
@@ -43,11 +54,29 @@ AgentFOS/
 │   └── summarizer.py
 └── prompts/
     └── summarize.txt
+```
 
-## The 6 Protocols (deep data, not shallow)
-ondo, zoth, maple, centrifuge, backed, opentrade
+## Product Identity
 
-## Risk Scoring (deterministic math, not AI)
+Every document and every product surface should reinforce the same flow:
+
+`Agent → Policy Skill → Opportunity Skill → Risk Skill → Allocation Skill → Pharos On-Chain Proof`
+
+That is the product.
+
+## Current Domain Baseline
+
+The working baseline is the six curated RWA protocols:
+
+`ondo`, `zoth`, `maple`, `centrifuge`, `backed`, `opentrade`
+
+This baseline is intentional. It keeps the product focused, understandable, and demo-safe.
+
+## Risk Scoring
+
+Risk scoring is deterministic math, not AI.
+
+```text
 score = 100
 if tvl < 1_000_000: score -= 30
 if tvl < 10_000_000: score -= 15
@@ -56,16 +85,33 @@ if age_days < 365: score -= 10
 if audit_status == "unaudited": score -= 30
 if issuer_concentration == "high": score -= 20
 if issuer_concentration == "medium": score -= 10
+```
 
-## API Endpoints
-POST /policy      — check if agent action is allowed
-POST /opportunity — fetch RWA yield opportunities
-POST /risk        — score a protocol deterministically
-POST /allocate    — generate capital allocation
-POST /agent       — natural language orchestration
+## API Surface
 
-## Mock Fallbacks Required For
+- `POST /policy` — check whether an action is allowed
+- `POST /opportunity` — fetch RWA yield opportunities
+- `POST /risk` — score one protocol deterministically
+- `POST /allocate` — generate a capital allocation and write the top result on-chain
+- `POST /agent` — natural-language orchestration without the paid write path
+- `GET /health` — app health check
+
+## Mock Fallbacks
+
+These external dependencies must always degrade safely:
+
 - DefiLlama API
 - FRED Treasury rates
 - yfinance benchmarks
-All mocks live in config.py as MOCK_* constants.
+
+All mock values live in `config.py` as `MOCK_*` constants.
+
+## Documentation Rule
+
+If a doc, README, skill reference, or submission page describes the product, it must say the same thing:
+
+- deterministic
+- auditable
+- verifiable
+- on-chain proof
+- financial decision layer for autonomous agents
