@@ -6,6 +6,11 @@ class Settings(BaseSettings):
     # API Keys
     STRAICO_API_KEY: str = ""
     FRED_API_KEY: str = ""
+    PHAROS_PRIVATE_KEY: str = ""
+
+    # Pharos
+    AGENTFOS_CONTRACT_ADDRESS: str = ""
+    PHAROS_RPC_URL: str = "https://atlantic.dplabs-internal.com"
 
     # App
     APP_NAME: str = "AgentFOS"
@@ -14,6 +19,7 @@ class Settings(BaseSettings):
 
     class Config:
         env_file = ".env"
+        extra = "ignore"
 
 
 settings = Settings()

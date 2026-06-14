@@ -15,3 +15,8 @@ venv.bak/
 # Project files
 .DS_Store
 *.log
+
+# Foundry build artifacts
+cache/
+out/
+broadcast/

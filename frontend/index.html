@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AgentFOS — RWA Yield Intelligence for AI Agents</title>
-    <meta name="description" content="Bloomberg Terminal for RWAs, callable by AI agents. Discover, evaluate, and allocate across real-world asset protocols on Pharos.">
+    <meta name="description" content="Bloomberg Terminal for RWAs, callable by AI agents. Discover, evaluate, allocate, and write RWA decisions on-chain to Pharos.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -44,16 +44,15 @@
             <span class="hero-gradient">for AI Agents</span>
         </h1>
         <p class="hero-subtitle">
-            Bloomberg Terminal for RWAs, callable by autonomous agents. Discover yield opportunities, 
-            evaluate risk deterministically, enforce spending policies, and generate capital allocations 
-            across 6 real-world asset protocols.
+            Bloomberg Terminal for RWAs, callable by autonomous agents. Discover yield opportunities,
+            score risk deterministically, enforce policies, and write paid allocation decisions on-chain.
         </p>
         <div class="hero-actions">
             <a href="#playground" class="btn btn-primary">
                 <span>Try Live Playground</span>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
-            <a href="https://github.com/Surojit012/AgentFOS" target="_blank" class="btn btn-secondary">View on GitHub</a>
+            <a href="https://atlantic.pharosscan.xyz" target="_blank" class="btn btn-secondary">Pharos Explorer</a>
         </div>
         <div class="hero-stats">
             <div class="stat">
@@ -62,8 +61,8 @@
             </div>
             <div class="stat-divider"></div>
             <div class="stat">
-                <span class="stat-value">7</span>
-                <span class="stat-label">API Endpoints</span>
+                <span class="stat-value">0.001</span>
+                <span class="stat-label">PHRS Per Allocation</span>
             </div>
             <div class="stat-divider"></div>
             <div class="stat">
@@ -72,8 +71,8 @@
             </div>
             <div class="stat-divider"></div>
             <div class="stat">
-                <span class="stat-value">0</span>
-                <span class="stat-label">Databases Needed</span>
+                <span class="stat-value">688689</span>
+                <span class="stat-label">Pharos Chain ID</span>
             </div>
         </div>
     </div>
@@ -108,7 +107,7 @@
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
                 </div>
                 <h3>Risk Scoring</h3>
-                <p>Deterministic math — no AI guessing. Scores protocols on TVL depth, age, audit status, and issuer concentration using a transparent 100-point scale.</p>
+                <p>Deterministic math. Scores protocols on TVL depth, age, audit status, and issuer concentration using a transparent 100-point scale.</p>
                 <code>POST /risk</code>
             </div>
             <div class="feature-card">
@@ -116,24 +115,24 @@
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
                 </div>
                 <h3>Capital Allocation</h3>
-                <p>Intelligent portfolio construction that ladders capital across approved protocols, weighted by risk-adjusted yield spread over Treasury benchmarks.</p>
+                <p>Portfolio construction that ladders capital across approved protocols, weighted by risk-adjusted yield spread over Treasury benchmarks.</p>
                 <code>POST /allocate</code>
             </div>
             <div class="feature-card featured">
                 <div class="feature-icon" style="--accent: #A29BFE;">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
                 </div>
-                <h3>Agent Orchestrator</h3>
-                <p>Natural language interface that chains all skills together. Ask it a question, and it runs the full pipeline — discover, score, check policy, allocate, summarize.</p>
-                <code>POST /agent</code>
+                <h3>Pharos Proof</h3>
+                <p>After allocation, AgentFOS writes the top protocol, risk score, and APY bps on-chain, charging 0.001 PHRS for the Skill call.</p>
+                <code>cast send allocate()</code>
             </div>
             <div class="feature-card">
                 <div class="feature-icon" style="--accent: #74B9FF;">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
                 </div>
-                <h3>AI Narratives</h3>
-                <p>Claude Sonnet via Straico generates intelligent portfolio summaries. Every allocation comes with a human-readable narrative explaining the strategy.</p>
-                <code>via /allocate & /agent</code>
+                <h3>Agent Orchestrator</h3>
+                <p>Natural language interface that chains the pipeline together: discover, score, check policy, allocate, summarize.</p>
+                <code>POST /agent</code>
             </div>
         </div>
     </div>
@@ -146,9 +145,7 @@
             <span class="section-tag">Deep Data</span>
             <h2>6 RWA Protocols. <span class="text-gradient">Real Yields. Real Assets.</span></h2>
         </div>
-        <div class="protocols-grid" id="protocolsGrid">
-            <!-- Filled by JS -->
-        </div>
+        <div class="protocols-grid" id="protocolsGrid"></div>
     </div>
 </section>
 
@@ -157,37 +154,37 @@
     <div class="container">
         <div class="section-header">
             <span class="section-tag">How It Works</span>
-            <h2>From Natural Language <span class="text-gradient">to Capital Allocation</span></h2>
+            <h2>From Natural Language <span class="text-gradient">to Pharos Proof</span></h2>
         </div>
         <div class="flow-pipeline">
             <div class="flow-step">
                 <div class="flow-num">1</div>
                 <div class="flow-label">Agent Query</div>
-                <div class="flow-desc">"Find low risk RWAs above treasury yields"</div>
+                <div class="flow-desc">"Allocate $100k to medium risk RWAs"</div>
             </div>
             <div class="flow-arrow">→</div>
             <div class="flow-step">
                 <div class="flow-num">2</div>
                 <div class="flow-label">Discover</div>
-                <div class="flow-desc">Fetch live TVL & APY from DefiLlama + FRED benchmarks</div>
+                <div class="flow-desc">Fetch live TVL, APY, and benchmark data</div>
             </div>
             <div class="flow-arrow">→</div>
             <div class="flow-step">
                 <div class="flow-num">3</div>
                 <div class="flow-label">Score</div>
-                <div class="flow-desc">Deterministic risk scoring (TVL, age, audits, concentration)</div>
+                <div class="flow-desc">Deterministic risk scoring with policy guardrails</div>
             </div>
             <div class="flow-arrow">→</div>
             <div class="flow-step">
                 <div class="flow-num">4</div>
-                <div class="flow-label">Guard</div>
-                <div class="flow-desc">Policy engine enforces spending limits & risk tolerance</div>
+                <div class="flow-label">Allocate</div>
+                <div class="flow-desc">Risk-weighted portfolio distribution</div>
             </div>
             <div class="flow-arrow">→</div>
             <div class="flow-step">
                 <div class="flow-num">5</div>
-                <div class="flow-label">Allocate</div>
-                <div class="flow-desc">Risk-weighted capital distribution + AI narrative</div>
+                <div class="flow-label">Write</div>
+                <div class="flow-desc">Store top allocation on Pharos for 0.001 PHRS</div>
             </div>
         </div>
     </div>
@@ -198,8 +195,69 @@
     <div class="container">
         <div class="section-header">
             <span class="section-tag">Live Playground</span>
-            <h2>Test the API. <span class="text-gradient">Right Now.</span></h2>
-            <p class="section-desc">Select an endpoint, edit the request body, and hit Send. Responses are live from your running AgentFOS server.</p>
+            <h2>Generate Allocation. <span class="text-gradient">Prove It On Pharos.</span></h2>
+            <p class="section-desc">Use the same API console style, now upgraded with visual portfolio output and on-chain proof after /allocate runs.</p>
+        </div>
+
+        <div class="allocation-dashboard" id="allocationDashboard">
+            <div class="allocation-summary">
+                <div class="proof-header">
+                    <span class="proof-dot pending" id="proofDot"></span>
+                    <span id="proofTitle">No allocation submitted yet</span>
+                </div>
+                <div class="summary-grid">
+                    <div class="summary-card">
+                        <span>Portfolio APY</span>
+                        <strong id="portfolioApy">--</strong>
+                        <small id="dataSource">Awaiting /allocate</small>
+                    </div>
+                    <div class="summary-card">
+                        <span>Avg Risk</span>
+                        <strong id="portfolioRisk">--</strong>
+                        <small>Weighted portfolio score</small>
+                    </div>
+                    <div class="summary-card">
+                        <span>Treasury Spread</span>
+                        <strong id="portfolioSpread">--</strong>
+                        <small id="treasuryRate">vs benchmark</small>
+                    </div>
+                    <div class="summary-card">
+                        <span>Top On-Chain Protocol</span>
+                        <strong id="topProtocol">--</strong>
+                        <small id="topProtocolMeta">Risk, APY bps, allocation</small>
+                    </div>
+                </div>
+                <p class="narrative" id="narrative">Run POST /allocate to generate the capital allocation narrative.</p>
+            </div>
+
+            <div class="proof-card">
+                <span class="proof-label">Pharos Proof</span>
+                <dl>
+                    <div><dt>Status</dt><dd id="proofStatus">idle</dd></div>
+                    <div><dt>Fee</dt><dd>0.001 PHRS</dd></div>
+                    <div><dt>Tx Hash</dt><dd id="proofTx">--</dd></div>
+                </dl>
+                <a href="#" id="proofLink" class="proof-link disabled" target="_blank" rel="noreferrer">Open in PharosScan</a>
+                <p class="proof-error" id="proofError"></p>
+            </div>
+        </div>
+
+        <div class="allocation-table-wrap">
+            <table class="allocation-table">
+                <thead>
+                    <tr>
+                        <th>Protocol</th>
+                        <th>APY</th>
+                        <th>Risk</th>
+                        <th>Allocation</th>
+                        <th>Amount</th>
+                        <th>Spread</th>
+                    </tr>
+                </thead>
+                <tbody id="allocationRows">
+                    <tr><td colspan="6">Allocation table appears after POST /allocate.</td></tr>
+                </tbody>
+            </table>
         </div>
 
         <div class="playground-container">
@@ -209,7 +267,11 @@
                     <input type="text" id="baseUrl" value="http://localhost:8000" spellcheck="false">
                 </div>
                 <div class="pg-endpoints">
-                    <button class="pg-endpoint active" data-endpoint="agent">
+                    <button class="pg-endpoint active" data-endpoint="allocate">
+                        <span class="method post">POST</span>
+                        <span>/allocate</span>
+                    </button>
+                    <button class="pg-endpoint" data-endpoint="agent">
                         <span class="method post">POST</span>
                         <span>/agent</span>
                     </button>
@@ -225,10 +287,6 @@
                         <span class="method post">POST</span>
                         <span>/policy</span>
                     </button>
-                    <button class="pg-endpoint" data-endpoint="allocate">
-                        <span class="method post">POST</span>
-                        <span>/allocate</span>
-                    </button>
                     <button class="pg-endpoint" data-endpoint="health">
                         <span class="method get">GET</span>
                         <span>/health</span>
@@ -238,7 +296,6 @@
 
             <div class="pg-main">
                 <div class="pg-panels">
-                    <!-- Request Panel -->
                     <div class="pg-panel">
                         <div class="pg-panel-header">
                             <span>Request</span>
@@ -252,7 +309,6 @@
                         </div>
                     </div>
 
-                    <!-- Response Panel -->
                     <div class="pg-panel">
                         <div class="pg-panel-header">
                             <span>Response</span>

@@ -124,10 +124,13 @@ async def fetch_protocol_data(protocol_key: str) -> Dict[str, Any]:
 
 async def fetch_all_protocols() -> Dict[str, Dict[str, Any]]:
     """
-    Fetch TVL + APY data for all 6 protocols.
+    Fetch TVL + APY data for all 6 protocols concurrently.
     Returns dict keyed by protocol_key with tvl, apy, tvl_change_30d, data_source.
     """
-    results = {}
-    for key in PROTOCOLS:
-        results[key] = await fetch_protocol_data(key)
-    return results
+    import asyncio
+
+    keys = list(PROTOCOLS.keys())
+    tasks = [fetch_protocol_data(key) for key in keys]
+    results_list = await asyncio.gather(*tasks)
+    return dict(zip(keys, results_list))
+

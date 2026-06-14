@@ -39,6 +39,7 @@ from skills.opportunity import OpportunityEngine
 from skills.risk import RiskEngine
 from skills.allocation import AllocationEngine
 from services.defillama import fetch_all_protocols
+from services.pharos import record_allocation_onchain
 
 # ── App Setup ────────────────────────────────────────────────────────────────
 
@@ -124,7 +125,18 @@ async def score_risk(request: RiskRequest) -> RiskResponse:
 @app.post("/allocate", response_model=AllocationResponse)
 async def generate_allocation(request: AllocationRequest) -> AllocationResponse:
     """Generate capital allocation with risk-adjusted scoring and AI narrative."""
-    return await allocation_engine.allocate(request)
+    allocation = await allocation_engine.allocate(request)
+
+    if not allocation.allocations:
+        allocation.onchain_status = "skipped"
+        allocation.onchain_error = "No allocation was generated to record on-chain."
+        return allocation
+
+    onchain_result = record_allocation_onchain(allocation.allocations[0])
+    allocation.onchain_status = onchain_result.status
+    allocation.onchain_tx_hash = onchain_result.tx_hash
+    allocation.onchain_error = onchain_result.error
+    return allocation
 
 
 # ── POST /agent ──────────────────────────────────────────────────────────────

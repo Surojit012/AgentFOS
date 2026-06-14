@@ -76,7 +76,7 @@ async def summarize_allocation(
                 STRAICO_API_URL,
                 json=payload,
                 headers=headers,
-                timeout=30.0,
+                timeout=15.0,
             )
             response.raise_for_status()
             data = response.json()

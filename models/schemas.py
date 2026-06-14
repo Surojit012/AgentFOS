@@ -120,6 +120,9 @@ class AllocationResponse(BaseModel):
     portfolio_spread: float             # portfolio APY - treasury rate
     data_source: str
     narrative: Optional[str] = None     # Claude summary
+    onchain_status: Optional[str] = None
+    onchain_tx_hash: Optional[str] = None
+    onchain_error: Optional[str] = None
 
 
 # ── Agent Skill ──────────────────────────────────────────────────────────────

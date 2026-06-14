@@ -174,7 +174,7 @@ body {
 }
 .section-desc {
     color: var(--text-secondary); font-size: 1rem;
-    max-width: 540px; margin: 12px auto 0;
+    max-width: 620px; margin: 12px auto 0;
 }
 
 /* ── Features ── */
@@ -276,6 +276,118 @@ body {
 
 /* ── Playground ── */
 .playground { padding: 100px 0 120px; }
+.allocation-dashboard {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+.allocation-summary,
+.proof-card,
+.allocation-table-wrap {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+}
+.proof-header {
+    display: flex; align-items: center; gap: 10px;
+    color: var(--text-secondary);
+    font-size: 0.875rem; font-weight: 600;
+    margin-bottom: 16px;
+}
+.proof-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--yellow);
+    box-shadow: 0 0 12px currentColor;
+}
+.proof-dot.success { background: var(--green); }
+.proof-dot.error { background: var(--red); }
+.summary-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+.summary-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px;
+}
+.summary-card span,
+.proof-label,
+.proof-card dt {
+    display: block;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+.summary-card strong {
+    display: block;
+    margin: 8px 0 4px;
+    font-size: 1.35rem;
+    font-family: var(--font-mono);
+}
+.summary-card small { color: var(--text-muted); font-size: 0.75rem; }
+.narrative {
+    color: var(--text-secondary);
+    margin: 18px 0 0;
+    font-size: 0.9rem;
+    line-height: 1.7;
+}
+.proof-card dl { margin: 16px 0; display: grid; gap: 14px; }
+.proof-card dd {
+    margin: 4px 0 0;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    overflow-wrap: anywhere;
+}
+.proof-link {
+    display: block;
+    text-align: center;
+    padding: 10px 12px;
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(0, 212, 170, 0.25);
+    color: var(--green);
+    text-decoration: none;
+    font-size: 0.8125rem;
+    font-weight: 700;
+}
+.proof-link.disabled {
+    pointer-events: none;
+    color: var(--text-muted);
+    border-color: var(--border);
+}
+.proof-error {
+    color: var(--yellow);
+    font-size: 0.8rem;
+    line-height: 1.5;
+    margin-top: 12px;
+}
+.allocation-table-wrap { margin-bottom: 16px; overflow-x: auto; }
+.allocation-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+}
+.allocation-table th,
+.allocation-table td {
+    padding: 12px 10px;
+    border-bottom: 1px solid var(--border);
+    text-align: left;
+    white-space: nowrap;
+}
+.allocation-table th {
+    color: var(--text-muted);
+    text-transform: uppercase;
+    font-size: 0.6875rem;
+    letter-spacing: 0.06em;
+}
+.allocation-table tr.top-row {
+    background: linear-gradient(90deg, rgba(124, 92, 252, 0.12), transparent);
+}
 .playground-container {
     display: flex; gap: 0;
     background: var(--bg-secondary);
@@ -387,6 +499,10 @@ body {
 .footer-links a:hover { color: var(--text-primary); }
 
 /* ── Responsive ── */
+@media (max-width: 1000px) {
+    .allocation-dashboard { grid-template-columns: 1fr; }
+    .summary-grid { grid-template-columns: repeat(2, 1fr); }
+}
 @media (max-width: 900px) {
     .features-grid, .protocols-grid { grid-template-columns: repeat(2, 1fr); }
     .pg-panels { grid-template-columns: 1fr; }
@@ -395,7 +511,7 @@ body {
     .flow-arrow { transform: rotate(90deg); }
 }
 @media (max-width: 640px) {
-    .features-grid, .protocols-grid { grid-template-columns: 1fr; }
+    .features-grid, .protocols-grid, .summary-grid { grid-template-columns: 1fr; }
     .playground-container { flex-direction: column; }
     .pg-sidebar { width: 100%; border-right: none; border-bottom: 1px solid var(--border); }
     .hero-stats { gap: 20px; }
