@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgentFOS — RWA Yield Intelligence for AI Agents</title>
+    <meta name="description" content="Bloomberg Terminal for RWAs, callable by AI agents. Discover, evaluate, and allocate across real-world asset protocols on Pharos.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/frontend/style.css">
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav">
+    <div class="nav-inner">
+        <a href="#" class="nav-logo">
+            <span class="logo-icon">⬡</span>
+            <span>AgentFOS</span>
+        </a>
+        <div class="nav-links">
+            <a href="#features">Features</a>
+            <a href="#protocols">Protocols</a>
+            <a href="#playground">Playground</a>
+            <a href="https://github.com/Surojit012/AgentFOS" target="_blank" class="nav-github">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+            </a>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-content">
+        <div class="hero-badge">
+            <span class="badge-dot"></span>
+            Built for Pharos · Agent Carnival Phase 1
+        </div>
+        <h1 class="hero-title">
+            The Financial Operating System
+            <span class="hero-gradient">for AI Agents</span>
+        </h1>
+        <p class="hero-subtitle">
+            Bloomberg Terminal for RWAs, callable by autonomous agents. Discover yield opportunities, 
+            evaluate risk deterministically, enforce spending policies, and generate capital allocations 
+            across 6 real-world asset protocols.
+        </p>
+        <div class="hero-actions">
+            <a href="#playground" class="btn btn-primary">
+                <span>Try Live Playground</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <a href="https://github.com/Surojit012/AgentFOS" target="_blank" class="btn btn-secondary">View on GitHub</a>
+        </div>
+        <div class="hero-stats">
+            <div class="stat">
+                <span class="stat-value">6</span>
+                <span class="stat-label">RWA Protocols</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat">
+                <span class="stat-value">7</span>
+                <span class="stat-label">API Endpoints</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat">
+                <span class="stat-value">100%</span>
+                <span class="stat-label">Deterministic Risk</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat">
+                <span class="stat-value">0</span>
+                <span class="stat-label">Databases Needed</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features -->
+<section class="features" id="features">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-tag">Capabilities</span>
+            <h2>Every Agent Tells You What to Buy.<br><span class="text-gradient">AgentFOS Decides If It Should.</span></h2>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon" style="--accent: #6C5CE7;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                </div>
+                <h3>Policy Engine</h3>
+                <p>Guardrail system that enforces spending policies before any capital moves. Validates risk tolerance, protocol eligibility, and allocation limits.</p>
+                <code>POST /policy</code>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon" style="--accent: #00B894;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                </div>
+                <h3>Opportunity Discovery</h3>
+                <p>Scans 6 RWA protocols in real-time via DefiLlama, benchmarks yields against FRED Treasury data, and maps the full yield spread matrix.</p>
+                <code>POST /opportunity</code>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon" style="--accent: #FDCB6E;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                </div>
+                <h3>Risk Scoring</h3>
+                <p>Deterministic math — no AI guessing. Scores protocols on TVL depth, age, audit status, and issuer concentration using a transparent 100-point scale.</p>
+                <code>POST /risk</code>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon" style="--accent: #E17055;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                </div>
+                <h3>Capital Allocation</h3>
+                <p>Intelligent portfolio construction that ladders capital across approved protocols, weighted by risk-adjusted yield spread over Treasury benchmarks.</p>
+                <code>POST /allocate</code>
+            </div>
+            <div class="feature-card featured">
+                <div class="feature-icon" style="--accent: #A29BFE;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                </div>
+                <h3>Agent Orchestrator</h3>
+                <p>Natural language interface that chains all skills together. Ask it a question, and it runs the full pipeline — discover, score, check policy, allocate, summarize.</p>
+                <code>POST /agent</code>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon" style="--accent: #74B9FF;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                </div>
+                <h3>AI Narratives</h3>
+                <p>Claude Sonnet via Straico generates intelligent portfolio summaries. Every allocation comes with a human-readable narrative explaining the strategy.</p>
+                <code>via /allocate & /agent</code>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Protocols -->
+<section class="protocols" id="protocols">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-tag">Deep Data</span>
+            <h2>6 RWA Protocols. <span class="text-gradient">Real Yields. Real Assets.</span></h2>
+        </div>
+        <div class="protocols-grid" id="protocolsGrid">
+            <!-- Filled by JS -->
+        </div>
+    </div>
+</section>
+
+<!-- Architecture -->
+<section class="architecture">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-tag">How It Works</span>
+            <h2>From Natural Language <span class="text-gradient">to Capital Allocation</span></h2>
+        </div>
+        <div class="flow-pipeline">
+            <div class="flow-step">
+                <div class="flow-num">1</div>
+                <div class="flow-label">Agent Query</div>
+                <div class="flow-desc">"Find low risk RWAs above treasury yields"</div>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step">
+                <div class="flow-num">2</div>
+                <div class="flow-label">Discover</div>
+                <div class="flow-desc">Fetch live TVL & APY from DefiLlama + FRED benchmarks</div>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step">
+                <div class="flow-num">3</div>
+                <div class="flow-label">Score</div>
+                <div class="flow-desc">Deterministic risk scoring (TVL, age, audits, concentration)</div>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step">
+                <div class="flow-num">4</div>
+                <div class="flow-label">Guard</div>
+                <div class="flow-desc">Policy engine enforces spending limits & risk tolerance</div>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step">
+                <div class="flow-num">5</div>
+                <div class="flow-label">Allocate</div>
+                <div class="flow-desc">Risk-weighted capital distribution + AI narrative</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Playground -->
+<section class="playground" id="playground">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-tag">Live Playground</span>
+            <h2>Test the API. <span class="text-gradient">Right Now.</span></h2>
+            <p class="section-desc">Select an endpoint, edit the request body, and hit Send. Responses are live from your running AgentFOS server.</p>
+        </div>
+
+        <div class="playground-container">
+            <div class="pg-sidebar">
+                <div class="pg-url-bar">
+                    <label>API Base URL</label>
+                    <input type="text" id="baseUrl" value="http://localhost:8000" spellcheck="false">
+                </div>
+                <div class="pg-endpoints">
+                    <button class="pg-endpoint active" data-endpoint="agent">
+                        <span class="method post">POST</span>
+                        <span>/agent</span>
+                    </button>
+                    <button class="pg-endpoint" data-endpoint="opportunity">
+                        <span class="method post">POST</span>
+                        <span>/opportunity</span>
+                    </button>
+                    <button class="pg-endpoint" data-endpoint="risk">
+                        <span class="method post">POST</span>
+                        <span>/risk</span>
+                    </button>
+                    <button class="pg-endpoint" data-endpoint="policy">
+                        <span class="method post">POST</span>
+                        <span>/policy</span>
+                    </button>
+                    <button class="pg-endpoint" data-endpoint="allocate">
+                        <span class="method post">POST</span>
+                        <span>/allocate</span>
+                    </button>
+                    <button class="pg-endpoint" data-endpoint="health">
+                        <span class="method get">GET</span>
+                        <span>/health</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="pg-main">
+                <div class="pg-panels">
+                    <!-- Request Panel -->
+                    <div class="pg-panel">
+                        <div class="pg-panel-header">
+                            <span>Request</span>
+                            <button class="btn-send" id="sendBtn" onclick="sendRequest()">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+                                Send
+                            </button>
+                        </div>
+                        <div class="pg-editor">
+                            <textarea id="requestBody" spellcheck="false"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Response Panel -->
+                    <div class="pg-panel">
+                        <div class="pg-panel-header">
+                            <span>Response</span>
+                            <span class="pg-status" id="responseStatus"></span>
+                        </div>
+                        <div class="pg-editor">
+                            <pre id="responseBody" class="response-pre"><span class="response-placeholder">// Click "Send" to see the response</span></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <span class="logo-icon">⬡</span> AgentFOS
+            </div>
+            <p>RealFi Yield Intelligence Network — built for the Pharos Agent Carnival hackathon.</p>
+            <div class="footer-links">
+                <a href="https://github.com/Surojit012/AgentFOS" target="_blank">GitHub</a>
+                <a href="https://x.com/surojitpvt" target="_blank">Twitter</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="/frontend/app.js"></script>
+</body>
+</html>

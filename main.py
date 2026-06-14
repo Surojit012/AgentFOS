@@ -15,6 +15,8 @@ import json
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 
 from config import settings
 from models.schemas import (
@@ -290,3 +292,19 @@ async def agent_orchestrate(request: AgentRequest) -> AgentResponse:
         recommendation=allocation if allocation.allocations else None,
         answer=answer,
     )
+
+
+# ── Frontend ─────────────────────────────────────────────────────────────────
+
+import os
+_FRONTEND_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "frontend")
+
+
+@app.get("/app")
+async def serve_frontend():
+    """Serve the AgentFOS developer landing page."""
+    return FileResponse(os.path.join(_FRONTEND_DIR, "index.html"))
+
+
+# Mount static assets (CSS, JS) — must be last to avoid catching API routes
+app.mount("/frontend", StaticFiles(directory=_FRONTEND_DIR), name="frontend")
