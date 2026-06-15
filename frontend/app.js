@@ -6,12 +6,12 @@ const PHAROS_TX_BASE = "https://atlantic.pharosscan.xyz/tx/";
 
 // ── Protocol Data ──
 const PROTOCOLS = [
-    { key: "ondo", name: "Ondo Finance", class: "Tokenized Treasury", apy: "4.7%", risk: "100/100", color: "#74b9ff" },
-    { key: "zoth", name: "Zoth", class: "Emerging Market Credit", apy: "10.2%", risk: "75/100", color: "#ffd93d" },
-    { key: "maple", name: "Maple Finance", class: "Institutional Private Credit", apy: "8.5%", risk: "90/100", color: "#a29bfe" },
-    { key: "centrifuge", name: "Centrifuge", class: "Real World Asset Loans", apy: "7.2%", risk: "100/100", color: "#00d4aa" },
-    { key: "backed", name: "Backed Finance", class: "Tokenized ETFs & Bonds", apy: "5.1%", risk: "100/100", color: "#6c5ce7" },
-    { key: "opentrade", name: "OpenTrade", class: "Trade Finance", apy: "6.8%", risk: "90/100", color: "#e17055" },
+    { key: "ondo", name: "Ondo Finance", class: "Tokenized Treasury", apy: "4.7%", risk: "100/100", color: "#FB6702" },
+    { key: "zoth", name: "Zoth", class: "Emerging Market Credit", apy: "10.2%", risk: "75/100", color: "#DCDBDD" },
+    { key: "maple", name: "Maple Finance", class: "Institutional Private Credit", apy: "8.5%", risk: "90/100", color: "#8C8F9E" },
+    { key: "centrifuge", name: "Centrifuge", class: "Real World Asset Loans", apy: "7.2%", risk: "100/100", color: "#FCFCFC" },
+    { key: "backed", name: "Backed Finance", class: "Tokenized ETFs & Bonds", apy: "5.1%", risk: "100/100", color: "#52566E" },
+    { key: "opentrade", name: "OpenTrade", class: "Trade Finance", apy: "6.8%", risk: "90/100", color: "#FB6702" },
 ];
 
 // ── Render Protocol Cards ──
