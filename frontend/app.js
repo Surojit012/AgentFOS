@@ -17,8 +17,8 @@ const PROTOCOLS = [
 // ── Render Protocol Cards ──
 function renderProtocols() {
     const grid = document.getElementById("protocolsGrid");
-    grid.innerHTML = PROTOCOLS.map(p => `
-        <div class="protocol-card">
+    grid.innerHTML = PROTOCOLS.map((p, index) => `
+        <div class="protocol-card reveal" style="--reveal-delay: ${index * 70}ms">
             <div class="pc-name">${p.name}</div>
             <div class="pc-class">${p.class}</div>
             <div class="pc-metrics">
@@ -211,6 +211,7 @@ function setProofError(message) {
 
 function renderAllocationDashboard(data) {
     const top = data.allocations?.[0];
+    const dashboard = document.getElementById("allocationDashboard");
 
     document.getElementById("portfolioApy").textContent = formatPct(data.portfolio_avg_apy);
     document.getElementById("portfolioRisk").textContent = data.portfolio_avg_risk_score ?? "--";
@@ -230,6 +231,11 @@ function renderAllocationDashboard(data) {
 
     renderProof(data, top);
     renderAllocationRows(data.allocations || []);
+
+    dashboard.classList.remove("is-updating");
+    void dashboard.offsetWidth;
+    dashboard.classList.add("is-updating");
+    window.setTimeout(() => dashboard.classList.remove("is-updating"), 700);
 }
 
 function renderProof(data, top) {
@@ -277,7 +283,7 @@ function renderAllocationRows(allocations) {
     }
 
     rows.innerHTML = allocations.map((item, index) => `
-        <tr class="${index === 0 ? "top-row" : ""}">
+        <tr class="row-enter ${index === 0 ? "top-row" : ""}" style="--row-delay: ${index * 60}ms">
             <td>${index === 0 ? "ON-CHAIN · " : ""}${item.name}</td>
             <td>${formatPct(item.apy)}</td>
             <td>${item.risk_score}/100</td>
@@ -316,6 +322,41 @@ document.getElementById("proofLink").addEventListener("click", event => {
     }
 });
 
+function initRevealAnimations() {
+    const revealTargets = document.querySelectorAll([
+        ".section-header",
+        ".feature-card",
+        ".protocol-card",
+        ".flow-step",
+        ".allocation-dashboard",
+        ".allocation-table-wrap",
+        ".playground-container"
+    ].join(","));
+
+    revealTargets.forEach((target, index) => {
+        target.classList.add("reveal");
+        if (!target.style.getPropertyValue("--reveal-delay")) {
+            target.style.setProperty("--reveal-delay", `${Math.min(index % 6, 5) * 70}ms`);
+        }
+    });
+
+    if (!("IntersectionObserver" in window)) {
+        revealTargets.forEach(target => target.classList.add("in-view"));
+        return;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add("in-view");
+            observer.unobserve(entry.target);
+        });
+    }, { threshold: 0.16, rootMargin: "0px 0px -60px 0px" });
+
+    revealTargets.forEach(target => observer.observe(target));
+}
+
 // ── Init ──
 renderProtocols();
 initEndpoints();
+initRevealAnimations();
