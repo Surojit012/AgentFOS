@@ -1,0 +1,41 @@
+---
+title: On-Chain Proof
+description: AgentFOS allocation proof on Pharos
+---
+
+# On-Chain Proof
+
+AgentFOS uses a payable Solidity contract to record the top allocation decision.
+
+The on-chain proof is optional. It is produced when the backend has:
+
+- `AGENTFOS_CONTRACT_ADDRESS`
+- `PHAROS_PRIVATE_KEY`
+- `PHAROS_RPC_URL`
+- Foundry `cast`
+
+## Contract
+
+`AgentFOSSkill.sol` exposes:
+
+```solidity
+allocate(string protocol, uint256 riskScore, uint256 apyBps) payable external
+getRiskScore(string protocol) view external returns (uint256)
+getLastAllocation() view external returns (...)
+withdrawFees(address payable recipient) external
+```
+
+## Event
+
+```solidity
+event AllocationGenerated(
+    address indexed caller,
+    string protocol,
+    uint256 riskScore,
+    uint256 timestamp
+);
+```
+
+## Fee
+
+Each allocation write charges exactly `0.001 PHRS`.

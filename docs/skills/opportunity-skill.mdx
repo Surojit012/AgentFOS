@@ -1,0 +1,40 @@
+---
+title: Opportunity Skill
+description: Discover RWA yield opportunities and benchmark context
+---
+
+# Opportunity Skill
+
+The Opportunity Skill discovers RWA yield opportunities across the curated AgentFOS protocol registry.
+
+It pulls protocol data, enriches with Treasury benchmarks, applies risk scoring, and returns assets that match user constraints.
+
+## Endpoint
+
+```text
+POST /opportunity
+```
+
+## Request
+
+```json
+{
+  "risk_level": "medium",
+  "min_apy": 0,
+  "min_tvl": 0
+}
+```
+
+## Response Fields
+
+| Field | Description |
+|---|---|
+| `assets` | Enriched RWA assets |
+| `treasury_rate` | Treasury benchmark |
+| `rwa_avg_apy` | Average RWA APY |
+| `data_source` | Live or fallback source summary |
+| `count` | Number of returned assets |
+
+## Asset Fields
+
+Each asset includes protocol key, name, primary asset, asset class, chain, TVL, APY, benchmark spread, risk score, risk level, and metadata.

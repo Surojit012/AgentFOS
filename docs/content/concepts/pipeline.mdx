@@ -1,0 +1,42 @@
+---
+title: Pipeline
+description: How an agent request becomes an allocation
+---
+
+# Pipeline
+
+AgentFOS turns agent intent into an auditable allocation.
+
+```text
+Agent
+↓
+Policy Skill
+↓
+Opportunity Skill
+↓
+Risk Skill
+↓
+Allocation Skill
+↓
+Optional Pharos Proof
+```
+
+## Policy Skill
+
+Checks whether the requested action is allowed under capital and risk constraints.
+
+## Opportunity Skill
+
+Fetches RWA opportunity data, including APY, TVL, and benchmark spreads.
+
+## Risk Skill
+
+Scores protocols with Risk Engine v2. The score is deterministic and includes a breakdown.
+
+## Allocation Skill
+
+Ranks eligible assets and generates allocation percentages, dollar amounts, portfolio APY, average risk, and narrative.
+
+## Optional Pharos Proof
+
+When configured, AgentFOS writes the top allocation on-chain with protocol, risk score, APY basis points, caller, and timestamp.

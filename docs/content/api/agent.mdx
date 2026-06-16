@@ -1,0 +1,64 @@
+---
+title: POST /agent
+description: Natural-language orchestration endpoint
+---
+
+# POST /agent
+
+Runs the full AgentFOS pipeline from a natural-language agent request.
+
+## Request
+
+```json
+{
+  "query": "Find low risk RWAs above treasury yields with $100k capital"
+}
+```
+
+Optional structured fields:
+
+```json
+{
+  "query": "Find low risk RWAs above treasury yields",
+  "capital": 100000,
+  "risk_tolerance": "low"
+}
+```
+
+## Request Fields
+
+| Field | Type | Required | Description |
+|---|---|---:|---|
+| `query` | string | Yes | Agent instruction |
+| `capital` | number | No | Explicit capital amount |
+| `risk_tolerance` | string | No | `low`, `medium`, or `high` |
+
+## Response
+
+```json
+{
+  "query": "Find low risk RWAs above treasury yields with $100k capital",
+  "steps": [
+    {
+      "step": "Parse Query",
+      "status": "complete",
+      "result": "Capital: $100,000, Risk tolerance: low"
+    },
+    {
+      "step": "Opportunity Discovery",
+      "status": "complete",
+      "result": "Found eligible RWA opportunities"
+    }
+  ],
+  "recommendation": {
+    "capital": 100000,
+    "risk_preference": "low",
+    "allocations": []
+  },
+  "answer": "Analyzed RWA protocols and generated an allocation response."
+}
+```
+
+## Use Cases
+
+Use `/agent` when an autonomous agent should send a task rather than manually call each skill endpoint.

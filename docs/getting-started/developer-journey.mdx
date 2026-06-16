@@ -1,0 +1,43 @@
+---
+title: Developer Journey
+description: How developers move from first call to on-chain proof
+---
+
+# Developer Journey
+
+AgentFOS is designed to be called by autonomous agents, agent backends, and financial workflow systems.
+
+## 1. Start With Intent
+
+Use `/agent` when the input is natural language.
+
+```json
+{
+  "query": "Find low risk RWAs above treasury yields with $100k capital"
+}
+```
+
+AgentFOS parses capital and risk tolerance, then runs the pipeline.
+
+## 2. Use Structured Endpoints
+
+Use skill endpoints directly when your system already has structured inputs.
+
+| Endpoint | Use |
+|---|---|
+| `POST /policy` | Check if an action is allowed |
+| `POST /opportunity` | Discover RWA opportunities |
+| `POST /risk` | Score one protocol deterministically |
+| `POST /allocate` | Generate an allocation and optional proof |
+
+## 3. Inspect Risk
+
+Risk Engine v2 returns a top-level `risk_score` plus an auditable breakdown.
+
+Every dimension includes provenance so agents can distinguish live data from fallback or insufficient data.
+
+## 4. Verify Proof
+
+When Pharos configuration and Foundry tooling are available, `/allocate` writes the top allocation on-chain for `0.001 PHRS`.
+
+Use the transaction hash to inspect the proof on PharosScan.

@@ -1,0 +1,47 @@
+---
+title: Allocation Skill
+description: Generate risk-adjusted capital allocations
+---
+
+# Allocation Skill
+
+The Allocation Skill combines opportunity discovery, risk scoring, and allocation logic.
+
+It returns allocation percentages, dollar amounts, portfolio APY, average risk score, Treasury spread, and optional Pharos proof status.
+
+## Endpoint
+
+```text
+POST /allocate
+```
+
+## Request
+
+```json
+{
+  "capital": 100000,
+  "risk": "medium",
+  "min_apy_spread": 0
+}
+```
+
+## Response Fields
+
+| Field | Description |
+|---|---|
+| `capital` | Requested capital amount |
+| `risk_preference` | Requested risk tolerance |
+| `allocations` | Protocol allocation list |
+| `portfolio_avg_apy` | Weighted portfolio APY |
+| `portfolio_avg_risk_score` | Weighted average risk score |
+| `treasury_benchmark` | Treasury benchmark rate |
+| `portfolio_spread` | Portfolio APY minus Treasury rate |
+| `data_source` | Live or fallback data summary |
+| `narrative` | Allocation narrative |
+| `onchain_status` | `success`, `failed`, or `skipped` |
+| `onchain_tx_hash` | Pharos transaction hash when successful |
+| `onchain_error` | Concise error when write fails or is skipped |
+
+## Paid Write Behavior
+
+When Pharos is configured, AgentFOS writes only the top allocation on-chain and charges `0.001 PHRS`.

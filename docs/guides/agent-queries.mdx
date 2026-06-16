@@ -1,0 +1,40 @@
+---
+title: Agent Queries
+description: Use natural language with the AgentFOS agent endpoint
+---
+
+# Agent Queries
+
+Use `/agent` when the caller is an autonomous agent sending a natural-language task.
+
+## Examples
+
+```text
+Find low risk RWAs above treasury yields with $100k capital
+```
+
+```text
+Allocate $250k to medium risk RWA protocols
+```
+
+```text
+What are the safest RWA yields?
+```
+
+## What AgentFOS Parses
+
+AgentFOS extracts capital and risk tolerance from the query when present.
+
+If capital is not provided, AgentFOS defaults to `$100,000`.
+
+If risk tolerance is not explicit, AgentFOS defaults to `medium`.
+
+## Request
+
+```bash
+curl -sS -X POST https://agentfos.onrender.com/agent \
+  -H "Content-Type: application/json" \
+  -d '{
+    "query": "Find low risk RWAs above treasury yields with $100k capital"
+  }'
+```

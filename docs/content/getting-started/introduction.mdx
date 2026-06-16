@@ -1,0 +1,42 @@
+---
+title: Introduction
+description: What AgentFOS is and why it exists
+---
+
+# Introduction
+
+AgentFOS is the financial decision layer for autonomous agents.
+
+It enables agents to discover RWA opportunities, evaluate risk deterministically, enforce policy constraints, generate capital allocations, and optionally prove decisions on-chain via Pharos.
+
+AgentFOS is not an AI chatbot, a portfolio tracker, a trading bot, or an analytics dashboard. It is financial infrastructure for accountable agent decisions.
+
+## Why It Exists
+
+Agents can reason, call tools, and transact. The missing layer is accountable financial decisioning.
+
+An autonomous agent that manages capital needs more than market commentary. It needs deterministic checks before capital moves:
+
+- Is the action allowed by policy?
+- Is the protocol risk acceptable?
+- Is the yield spread justified?
+- Can the decision be inspected later?
+- Can the top decision be proven on-chain?
+
+AgentFOS answers those questions with a structured pipeline.
+
+## The Pipeline
+
+```text
+Agent → Policy Skill → Opportunity Skill → Risk Skill → Allocation Skill → Optional Pharos Proof
+```
+
+Each step produces structured output that another agent, backend, or user interface can consume.
+
+## Hosted Services
+
+| Surface | URL |
+|---|---|
+| API backend | `https://agentfos.onrender.com` |
+| Frontend playground | `https://agentfos.vercel.app` |
+| Pharos explorer | `https://atlantic.pharosscan.xyz` |

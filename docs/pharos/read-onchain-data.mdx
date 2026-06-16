@@ -1,0 +1,43 @@
+---
+title: Read On-Chain Data
+description: Read AgentFOS proof data with cast
+---
+
+# Read On-Chain Data
+
+Use read-only `cast call` commands to inspect AgentFOS proof data.
+
+## Risk Score
+
+```bash
+cast call $AGENTFOS_CONTRACT_ADDRESS \
+  "getRiskScore(string)(uint256)" \
+  ondo \
+  --rpc-url $RPC
+```
+
+## Latest Allocation
+
+```bash
+cast call $AGENTFOS_CONTRACT_ADDRESS \
+  "getLastAllocation()(address,string,uint256,uint256,uint256)" \
+  --rpc-url $RPC
+```
+
+## Allocation Events
+
+```bash
+cast logs \
+  --from-block 0 \
+  --address $AGENTFOS_CONTRACT_ADDRESS \
+  "AllocationGenerated(address,string,uint256,uint256)" \
+  --rpc-url $RPC
+```
+
+## Allocation Fee
+
+```bash
+cast call $AGENTFOS_CONTRACT_ADDRESS \
+  "ALLOCATION_FEE()(uint256)" \
+  --rpc-url $RPC
+```

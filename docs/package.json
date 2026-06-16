@@ -1,0 +1,21 @@
+{
+  "name": "agentfos-docs",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --webpack",
+    "build": "next build --webpack",
+    "start": "next start"
+  },
+  "dependencies": {
+    "next": "latest",
+    "nextra": "latest",
+    "nextra-theme-docs": "latest",
+    "react": "latest",
+    "react-dom": "latest"
+  },
+  "devDependencies": {
+    "@types/node": "25.9.3",
+    "@types/react": "19.2.17",
+    "typescript": "latest"
+  }
+}

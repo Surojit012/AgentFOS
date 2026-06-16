@@ -1,0 +1,41 @@
+---
+title: Integrate AgentFOS
+description: Integration options for agents and backend services
+---
+
+# Integrate AgentFOS
+
+AgentFOS exposes a small HTTP API. You can integrate at two levels.
+
+## Natural-Language Agent Interface
+
+Use `/agent` when the caller is an autonomous agent sending a task.
+
+```python
+import requests
+
+response = requests.post(
+    "https://agentfos.onrender.com/agent",
+    json={
+        "query": "Allocate $100k to medium risk RWAs above treasury yields"
+    }
+)
+```
+
+## Structured Skill Interface
+
+Use individual endpoints when your system controls the workflow.
+
+```text
+POST /policy
+POST /opportunity
+POST /risk
+POST /allocate
+```
+
+## Integration Guidance
+
+- Use `/policy` before capital movement.
+- Use `/risk` when you need an auditable protocol score.
+- Use `/allocate` when you want portfolio output and optional Pharos proof.
+- Use `/agent` when a natural-language request should orchestrate the full pipeline.

@@ -1,0 +1,37 @@
+---
+title: Generate Allocation
+description: Generate a capital allocation and optional Pharos proof
+---
+
+# Generate Allocation
+
+Use `/allocate` to generate a structured allocation.
+
+```bash
+curl -sS -X POST https://agentfos.onrender.com/allocate \
+  -H "Content-Type: application/json" \
+  -d '{
+    "capital": 100000,
+    "risk": "medium",
+    "min_apy_spread": 0
+  }'
+```
+
+## What Happens
+
+1. AgentFOS discovers RWA opportunities.
+2. Risk Engine v2 scores protocols.
+3. The Allocation Skill filters by risk preference.
+4. Eligible assets are ranked by risk-adjusted spread.
+5. A portfolio allocation is returned.
+6. The top allocation can be written to Pharos.
+
+## On-Chain Status
+
+| Status | Meaning |
+|---|---|
+| `success` | Top allocation was recorded on Pharos |
+| `failed` | Allocation succeeded, but on-chain write failed |
+| `skipped` | No write was attempted or no allocation existed |
+
+The allocation response remains useful even when the on-chain write fails.

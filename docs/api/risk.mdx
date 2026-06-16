@@ -1,0 +1,124 @@
+---
+title: POST /risk
+description: Deterministically score one protocol
+---
+
+# POST /risk
+
+Scores a protocol deterministically with Risk Engine v2.
+
+The response remains backward compatible. Existing consumers can keep reading `risk_score`, `risk_level`, `factors`, and `recommendation`.
+
+## Request
+
+```json
+{
+  "protocol": "ondo"
+}
+```
+
+## Request Fields
+
+| Field | Type | Required | Description |
+|---|---|---:|---|
+| `protocol` | string | Yes | Protocol key such as `ondo`, `zoth`, `maple`, `centrifuge`, `backed`, or `opentrade` |
+
+## Response
+
+```json
+{
+  "protocol": "ondo",
+  "protocol_name": "Ondo Finance",
+  "risk_score": 81,
+  "risk_level": "Low",
+  "factors": {
+    "schema_version": "2.0",
+    "overall_confidence": "medium",
+    "final_score": 81
+  },
+  "recommendation": "Ondo Finance scores 81/100 (Low Risk). Strong fundamentals with medium scoring confidence. Suitable for conservative allocation.",
+  "rating": "Low Risk",
+  "overall_confidence": "medium",
+  "breakdown": {
+    "liquidity": {
+      "score": 10,
+      "max": 25,
+      "provenance": "degraded",
+      "details": {
+        "tvl": 1200000000,
+        "tvl_bucket_score": 10,
+        "activity_score": 0,
+        "source_note": "mock"
+      }
+    },
+    "maturity": {
+      "score": 20,
+      "max": 20,
+      "provenance": "degraded",
+      "details": {
+        "age_days": 1262,
+        "launch_date": "2023-01-01"
+      }
+    },
+    "transparency": {
+      "score": 16,
+      "max": 20,
+      "provenance": "degraded",
+      "details": {
+        "audit_points": 6,
+        "audit_age_days": 472,
+        "reserve_points": 5,
+        "legal_points": 5
+      }
+    },
+    "concentration": {
+      "score": 20,
+      "max": 20,
+      "provenance": "degraded",
+      "details": {
+        "top_5_holder_concentration": 35.0
+      }
+    },
+    "yield_sustainability": {
+      "score": 15,
+      "max": 15,
+      "provenance": "degraded",
+      "details": {
+        "rwa_yield": 4.7,
+        "treasury_yield": 4.2,
+        "spread": 0.5
+      }
+    }
+  },
+  "scored_at": "2026-06-16T09:00:01Z",
+  "schema_version": "2.0"
+}
+```
+
+## Risk Engine v2 Fields
+
+| Field | Description |
+|---|---|
+| `rating` | Display label for the numeric score |
+| `overall_confidence` | `high`, `medium`, or `low` |
+| `breakdown` | Dimension scores and provenance |
+| `scored_at` | UTC scoring timestamp |
+| `schema_version` | Risk schema version, currently `2.0` |
+
+## Breakdown Dimensions
+
+| Key | Max |
+|---|---:|
+| `liquidity` | 25 |
+| `maturity` | 20 |
+| `transparency` | 20 |
+| `concentration` | 20 |
+| `yield_sustainability` | 15 |
+
+## Provenance Enum
+
+| Value | Meaning |
+|---|---|
+| `live` | Fresh primary-source data was used |
+| `degraded` | Fallback, stale, partial, or static data was used |
+| `insufficient` | No usable data existed; a documented floor score was applied |

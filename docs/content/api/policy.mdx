@@ -1,0 +1,45 @@
+---
+title: POST /policy
+description: Check whether an action is allowed
+---
+
+# POST /policy
+
+Checks whether an agent action is allowed under current policy rules.
+
+## Request
+
+```json
+{
+  "action": "allocate",
+  "amount": 50000,
+  "asset": "maple",
+  "risk_tolerance": "low",
+  "max_single_allocation": 0.6,
+  "min_risk_score": 50
+}
+```
+
+## Request Fields
+
+| Field | Type | Required | Description |
+|---|---|---:|---|
+| `action` | string | Yes | `invest`, `allocate`, or `rebalance` |
+| `amount` | number | Yes | Requested capital amount |
+| `asset` | string | Yes | Protocol key |
+| `risk_tolerance` | string | No | `low`, `medium`, or `high` |
+| `max_single_allocation` | number | No | Maximum single allocation, default `0.6` |
+| `min_risk_score` | integer | No | Minimum acceptable score, default `50` |
+
+## Response
+
+```json
+{
+  "allowed": true,
+  "action": "allocate",
+  "asset": "maple",
+  "amount": 50000,
+  "reason": "Policy PASS - Maple Finance approved for allocate.",
+  "warnings": []
+}
+```

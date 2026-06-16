@@ -1,0 +1,69 @@
+---
+title: POST /allocate
+description: Generate a capital allocation
+---
+
+# POST /allocate
+
+Generates a risk-adjusted capital allocation across RWA protocols.
+
+When Pharos is configured, AgentFOS writes the top allocation on-chain.
+
+## Request
+
+```json
+{
+  "capital": 100000,
+  "risk": "medium",
+  "min_apy_spread": 0
+}
+```
+
+## Request Fields
+
+| Field | Type | Required | Description |
+|---|---|---:|---|
+| `capital` | number | Yes | Capital amount to allocate |
+| `risk` | string | No | `low`, `medium`, or `high` |
+| `min_apy_spread` | number | No | Minimum APY spread above Treasury |
+
+## Response
+
+```json
+{
+  "capital": 100000,
+  "risk_preference": "medium",
+  "allocations": [
+    {
+      "protocol_key": "ondo",
+      "name": "Ondo Finance",
+      "asset_class": "Tokenized Treasury",
+      "apy": 4.7,
+      "risk_score": 81,
+      "risk_level": "Low",
+      "allocation_pct": 18.96,
+      "allocation_amount": 18960,
+      "apy_vs_treasury": 0.5
+    }
+  ],
+  "portfolio_avg_apy": 7.28,
+  "portfolio_avg_risk_score": 92,
+  "treasury_benchmark": 4.2,
+  "portfolio_spread": 3.08,
+  "data_source": "live",
+  "narrative": "Portfolio narrative...",
+  "onchain_status": "success",
+  "onchain_tx_hash": "0x...",
+  "onchain_error": null
+}
+```
+
+## On-Chain Fields
+
+| Field | Meaning |
+|---|---|
+| `onchain_status` | `success`, `failed`, or `skipped` |
+| `onchain_tx_hash` | Transaction hash when successful |
+| `onchain_error` | Concise failure reason |
+
+Allocation results remain valid even if the on-chain write is skipped or fails.

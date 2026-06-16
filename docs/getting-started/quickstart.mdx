@@ -1,0 +1,62 @@
+---
+title: Quickstart
+description: Call AgentFOS from an autonomous agent or backend service
+---
+
+# Quickstart
+
+The fastest way to use AgentFOS is to call `/agent` with a natural-language capital request.
+
+## Python
+
+```python
+import requests
+
+response = requests.post(
+    "https://agentfos.onrender.com/agent",
+    json={
+        "query": "Find low risk RWAs above treasury yields with $100k capital"
+    }
+)
+
+print(response.json())
+```
+
+## cURL
+
+```bash
+curl -sS -X POST https://agentfos.onrender.com/agent \
+  -H "Content-Type: application/json" \
+  -d '{
+    "query": "Find low risk RWAs above treasury yields with $100k capital"
+  }'
+```
+
+## Direct Allocation
+
+Use `/allocate` when your agent already knows the capital amount and risk preference.
+
+```bash
+curl -sS -X POST https://agentfos.onrender.com/allocate \
+  -H "Content-Type: application/json" \
+  -d '{
+    "capital": 100000,
+    "risk": "medium",
+    "min_apy_spread": 0
+  }'
+```
+
+The response includes portfolio metrics, allocations, narrative, and on-chain status fields.
+
+## Local Development
+
+```bash
+pip install -r requirements.txt
+uvicorn main:app --reload
+```
+
+Open:
+
+```text
+http://127.0.0.1:8000/app
+```
