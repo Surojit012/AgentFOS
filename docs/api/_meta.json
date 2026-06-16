@@ -1,7 +1,0 @@
-{
-  "policy": "POST /policy",
-  "opportunity": "POST /opportunity",
-  "risk": "POST /risk",
-  "allocate": "POST /allocate",
-  "agent": "POST /agent"
-}
