@@ -15,6 +15,7 @@ from config import PROTOCOLS, MOCK_PROTOCOL_DATA
 DEFILLAMA_TVL_BASE = "https://api.llama.fi/protocol"
 DEFILLAMA_YIELDS_URL = "https://yields.llama.fi/pools"
 DEFILLAMA_TVL_HISTORICAL = "https://api.llama.fi/v2/historicalChainTvl"
+DEFILLAMA_TIMEOUT_SECONDS = 5.0
 
 # Map our protocol slugs to known DefiLlama pool project identifiers
 _SLUG_TO_PROJECT = {
@@ -37,7 +38,7 @@ def _calculate_age_days(launch_year: int) -> int:
 async def _fetch_tvl_for_protocol(client: httpx.AsyncClient, slug: str) -> Optional[float]:
     """Fetch current TVL from DefiLlama protocol endpoint."""
     url = f"{DEFILLAMA_TVL_BASE}/{slug}"
-    resp = await client.get(url, timeout=10.0)
+    resp = await client.get(url, timeout=DEFILLAMA_TIMEOUT_SECONDS)
     resp.raise_for_status()
     data = resp.json()
     # currentChainTvls contains chain-level TVL; total is in "tvl" field
@@ -52,7 +53,7 @@ async def _fetch_tvl_for_protocol(client: httpx.AsyncClient, slug: str) -> Optio
 async def _fetch_tvl_change_30d(client: httpx.AsyncClient, slug: str) -> Optional[float]:
     """Fetch TVL change over 30 days from DefiLlama protocol endpoint."""
     url = f"{DEFILLAMA_TVL_BASE}/{slug}"
-    resp = await client.get(url, timeout=10.0)
+    resp = await client.get(url, timeout=DEFILLAMA_TIMEOUT_SECONDS)
     resp.raise_for_status()
     data = resp.json()
     tvl_series = data.get("tvl", [])
@@ -70,7 +71,7 @@ async def _fetch_tvl_change_30d(client: httpx.AsyncClient, slug: str) -> Optiona
 
 async def _fetch_apy_for_slug(client: httpx.AsyncClient, slug: str) -> Optional[float]:
     """Fetch APY from DefiLlama yields endpoint by matching project name."""
-    resp = await client.get(DEFILLAMA_YIELDS_URL, timeout=15.0)
+    resp = await client.get(DEFILLAMA_YIELDS_URL, timeout=DEFILLAMA_TIMEOUT_SECONDS)
     resp.raise_for_status()
     data = resp.json()
     pools = data.get("data", [])
@@ -133,4 +134,3 @@ async def fetch_all_protocols() -> Dict[str, Dict[str, Any]]:
     tasks = [fetch_protocol_data(key) for key in keys]
     results_list = await asyncio.gather(*tasks)
     return dict(zip(keys, results_list))
-

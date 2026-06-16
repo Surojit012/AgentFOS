@@ -109,12 +109,17 @@ async def score_risk(request: RiskRequest) -> RiskResponse:
     # Fetch live TVL for the protocol
     try:
         protocol_data = await fetch_all_protocols()
-        tvl = protocol_data.get(request.protocol, {}).get("tvl", 0)
+        data = protocol_data.get(request.protocol, {})
     except Exception:
         from config import MOCK_PROTOCOL_DATA
-        tvl = MOCK_PROTOCOL_DATA.get(request.protocol, {}).get("tvl", 0)
+        data = {**MOCK_PROTOCOL_DATA.get(request.protocol, {}), "data_source": "mock"}
 
-    return risk_engine.evaluate(request.protocol, tvl)
+    return risk_engine.evaluate(
+        request.protocol,
+        data.get("tvl", 0),
+        apy=data.get("apy"),
+        data_source=data.get("data_source", "degraded"),
+    )
 
 
 # ── POST /allocate ───────────────────────────────────────────────────────────

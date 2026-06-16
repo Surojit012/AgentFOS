@@ -261,6 +261,26 @@
             </table>
         </div>
 
+        <div class="risk-breakdown-panel hidden" id="riskBreakdownPanel">
+            <div class="risk-breakdown-head">
+                <div>
+                    <span class="proof-label">Risk Score</span>
+                    <strong id="riskBreakdownScore">-- / 100</strong>
+                    <small id="riskBreakdownRating">--</small>
+                </div>
+                <div class="risk-meta-grid">
+                    <div><span>Scored At</span><strong id="riskScoredAt">--</strong></div>
+                    <div><span>Engine</span><strong id="riskEngineVersion">Risk Engine v2</strong></div>
+                    <div><span>Confidence</span><strong id="riskBreakdownConfidence">--</strong></div>
+                </div>
+            </div>
+            <div class="data-quality-card" id="riskDataQuality">
+                <span>Data Quality</span>
+                <strong><i class="quality-dot insufficient"></i>Insufficient Data</strong>
+            </div>
+            <div class="risk-breakdown-rows" id="riskBreakdownRows"></div>
+        </div>
+
         <div class="playground-container">
             <div class="pg-sidebar">
                 <div class="pg-url-bar">

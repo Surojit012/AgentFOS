@@ -70,6 +70,9 @@ class OpportunityEngine:
                 age_days=age_days,
                 audit_status=meta["audit_status"],
                 issuer_concentration=meta["issuer_concentration"],
+                apy=apy,
+                treasury_yield=treasury_rate,
+                data_source=live_data.get("data_source", "degraded"),
             )
             risk_level = self.risk_engine.get_risk_level(risk_score)
 

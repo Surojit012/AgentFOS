@@ -122,6 +122,9 @@ function initEndpoints() {
                 '<span class="response-placeholder">// Click "Send" to see the response</span>';
             document.getElementById("responseStatus").textContent = "";
             document.getElementById("responseStatus").className = "pg-status";
+            if (currentEndpoint !== "risk") {
+                hideRiskBreakdown();
+            }
         });
     });
 
@@ -178,6 +181,9 @@ async function sendRequest() {
         if (currentEndpoint === "allocate" && res.ok) {
             renderAllocationDashboard(data);
         }
+        if (currentEndpoint === "risk" && res.ok) {
+            renderRiskBreakdown(data);
+        }
     } catch (err) {
         const elapsed = Math.round(performance.now() - startTime);
         responseBody.textContent = `Error: ${err.message}\n\nMake sure the API Base URL points to a live AgentFOS backend.`;
@@ -185,6 +191,9 @@ async function sendRequest() {
         responseStatus.className = "pg-status error";
         if (currentEndpoint === "allocate") {
             setProofError(err.message);
+        }
+        if (currentEndpoint === "risk") {
+            hideRiskBreakdown();
         }
     } finally {
         requestInFlight = false;
@@ -292,6 +301,93 @@ function renderAllocationRows(allocations) {
             <td>${formatPct(item.apy_vs_treasury)}</td>
         </tr>
     `).join("");
+}
+
+function provenanceClass(provenance) {
+    if (provenance === "live") return "live";
+    if (provenance === "degraded") return "degraded";
+    return "insufficient";
+}
+
+function formatDimensionLabel(key) {
+    const labels = {
+        liquidity: "Liquidity",
+        maturity: "Maturity",
+        transparency: "Transparency",
+        concentration: "Concentration",
+        yield_sustainability: "Yield Sustain."
+    };
+    if (labels[key]) return labels[key];
+    return key
+        .replace(/_/g, " ")
+        .replace(/\b\w/g, char => char.toUpperCase());
+}
+
+function formatRiskTimestamp(value) {
+    if (!value) return "--";
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return value;
+    return date.toISOString().replace("T", " ").slice(0, 16) + " UTC";
+}
+
+function getDataQuality(breakdown) {
+    const provenances = Object.values(breakdown).map(value => value.provenance || "insufficient");
+    if (provenances.includes("insufficient")) {
+        return { className: "insufficient", label: "Insufficient Data" };
+    }
+    if (provenances.includes("degraded")) {
+        return { className: "degraded", label: "Degraded Data" };
+    }
+    return { className: "live", label: "Live Data" };
+}
+
+function formatProvenanceLabel(provenance) {
+    if (provenance === "live") return "Live Data";
+    if (provenance === "degraded") return "Degraded Data";
+    return "Insufficient Data";
+}
+
+function renderRiskBreakdown(data) {
+    const panel = document.getElementById("riskBreakdownPanel");
+    const rows = document.getElementById("riskBreakdownRows");
+    const breakdown = data.breakdown || data.factors?.breakdown;
+
+    if (!breakdown) {
+        hideRiskBreakdown();
+        return;
+    }
+
+    document.getElementById("riskBreakdownScore").textContent =
+        `${data.risk_score ?? "--"} / 100`;
+    document.getElementById("riskBreakdownRating").textContent = data.rating || "--";
+    document.getElementById("riskBreakdownConfidence").textContent =
+        data.overall_confidence || data.factors?.overall_confidence || "--";
+    document.getElementById("riskScoredAt").textContent = formatRiskTimestamp(data.scored_at);
+    document.getElementById("riskEngineVersion").textContent =
+        data.schema_version ? `Risk Engine v${data.schema_version}` : "Risk Engine v2";
+
+    const quality = getDataQuality(breakdown);
+    document.getElementById("riskDataQuality").innerHTML = `
+        <span>Data Quality</span>
+        <strong><i class="quality-dot ${quality.className}"></i>${quality.label}</strong>
+    `;
+
+    rows.innerHTML = Object.entries(breakdown).map(([key, value], index) => {
+        const provenance = value.provenance || "insufficient";
+        return `
+            <div class="risk-breakdown-row row-enter" style="--row-delay: ${index * 60}ms">
+                <span>${formatDimensionLabel(key)}</span>
+                <strong>${value.score}/${value.max}</strong>
+                <em class="${provenanceClass(provenance)}">${formatProvenanceLabel(provenance)}</em>
+            </div>
+        `;
+    }).join("");
+
+    panel.classList.remove("hidden");
+}
+
+function hideRiskBreakdown() {
+    document.getElementById("riskBreakdownPanel").classList.add("hidden");
 }
 
 // ── Add spin animation ──

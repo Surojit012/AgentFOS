@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field
-from typing import Optional, List
+from typing import Optional, List, Dict, Any
 from enum import Enum
 
 
@@ -89,6 +89,11 @@ class RiskResponse(BaseModel):
     risk_level: RiskLevel
     factors: dict                       # breakdown of what affected score
     recommendation: str
+    rating: Optional[str] = None
+    overall_confidence: Optional[str] = None
+    breakdown: Optional[Dict[str, Any]] = None
+    scored_at: Optional[str] = None
+    schema_version: Optional[str] = None
 
 
 # ── Allocation Skill ─────────────────────────────────────────────────────────

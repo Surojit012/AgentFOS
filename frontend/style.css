@@ -377,7 +377,8 @@ body {
 }
 .allocation-summary,
 .proof-card,
-.allocation-table-wrap {
+.allocation-table-wrap,
+.risk-breakdown-panel {
     background: var(--bg-secondary);
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
@@ -497,6 +498,121 @@ body {
 .allocation-table tbody tr.row-enter {
     animation: rowIn 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both;
     animation-delay: var(--row-delay, 0ms);
+}
+.risk-breakdown-panel {
+    margin-bottom: 16px;
+}
+.risk-breakdown-panel.hidden {
+    display: none;
+}
+.risk-breakdown-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 14px;
+}
+.risk-breakdown-head strong {
+    display: block;
+    margin-top: 6px;
+    font-family: var(--font-mono);
+    font-size: 1.2rem;
+}
+.risk-breakdown-head small {
+    display: block;
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    font-weight: 700;
+}
+.risk-meta-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(110px, 1fr));
+    gap: 8px;
+    min-width: min(520px, 100%);
+}
+.risk-meta-grid div,
+.data-quality-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 10px 12px;
+}
+.risk-meta-grid span,
+.data-quality-card span {
+    display: block;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+.risk-meta-grid strong,
+.data-quality-card strong {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-top: 5px;
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+}
+.data-quality-card {
+    margin-bottom: 12px;
+}
+.quality-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: var(--muted-grey);
+}
+.quality-dot.live { background: #16a34a; }
+.quality-dot.degraded { background: #f59e0b; }
+.quality-dot.insufficient { background: #dc2626; }
+.risk-breakdown-row em.live { color: #86efac; }
+.risk-breakdown-row em.degraded { color: #fbbf24; }
+.risk-breakdown-row em.insufficient { color: #fca5a5; }
+.risk-breakdown-row em.live::before { background: #16a34a; }
+.risk-breakdown-row em.degraded::before { background: #f59e0b; }
+.risk-breakdown-row em.insufficient::before { background: #dc2626; }
+.risk-breakdown-rows {
+    display: grid;
+    gap: 8px;
+}
+.risk-breakdown-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    animation: rowIn 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    animation-delay: var(--row-delay, 0ms);
+}
+.risk-breakdown-row span {
+    color: var(--text-secondary);
+}
+.risk-breakdown-row strong {
+    color: var(--text-primary);
+}
+.risk-breakdown-row em {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--text-muted);
+    font-style: normal;
+}
+.risk-breakdown-row em::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-radius: 999px;
+    background: var(--muted-grey);
 }
 .playground-container {
     display: flex; gap: 0;
@@ -654,9 +770,13 @@ body {
     .pg-panel:first-child { border-right: none; border-bottom: 1px solid var(--border); }
     .flow-pipeline { flex-direction: column; }
     .flow-arrow { transform: rotate(90deg); }
+    .risk-breakdown-head { flex-direction: column; }
+    .risk-meta-grid { width: 100%; }
 }
 @media (max-width: 640px) {
     .features-grid, .protocols-grid, .summary-grid { grid-template-columns: 1fr; }
+    .risk-meta-grid { grid-template-columns: 1fr; }
+    .risk-breakdown-row { grid-template-columns: 1fr; }
     .playground-container { flex-direction: column; }
     .pg-sidebar { width: 100%; border-right: none; border-bottom: 1px solid var(--border); }
     .hero-stats { gap: 20px; }
