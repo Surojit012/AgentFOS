@@ -3,6 +3,15 @@
    ======================================== */
 
 const PHAROS_TX_BASE = "https://atlantic.pharosscan.xyz/tx/";
+const REQUEST_TIMEOUT_MS = 120000;
+
+function getRequestErrorMessage(err) {
+    const message = err?.message || String(err);
+    if (err?.name === "AbortError" || message.toLowerCase().includes("aborted")) {
+        return `Request timed out after ${Math.round(REQUEST_TIMEOUT_MS / 1000)}s. Render may still be waking up, or the backend may be waiting on the Pharos write path.`;
+    }
+    return message;
+}
 
 // ── Protocol Data ──
 const PROTOCOLS = [
@@ -155,9 +164,11 @@ async function sendRequest() {
 
     const startTime = performance.now();
 
+    let timeout;
+
     try {
         const controller = new AbortController();
-        const timeout = setTimeout(() => controller.abort(), 60000);
+        timeout = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
 
         const fetchOpts = {
             method: tmpl.method,
@@ -186,16 +197,18 @@ async function sendRequest() {
         }
     } catch (err) {
         const elapsed = Math.round(performance.now() - startTime);
-        responseBody.textContent = `Error: ${err.message}\n\nMake sure the API Base URL points to a live AgentFOS backend.`;
+        const message = getRequestErrorMessage(err);
+        responseBody.textContent = `Error: ${message}\n\nMake sure the API Base URL points to a live AgentFOS backend.`;
         responseStatus.textContent = `ERR • ${elapsed}ms`;
         responseStatus.className = "pg-status error";
         if (currentEndpoint === "allocate") {
-            setProofError(err.message);
+            setProofError(message);
         }
         if (currentEndpoint === "risk") {
             hideRiskBreakdown();
         }
     } finally {
+        clearTimeout(timeout);
         requestInFlight = false;
         sendBtn.classList.remove("loading");
         sendBtn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg> Send`;
