@@ -5,13 +5,27 @@ Keeps the backend demo-safe: allocation responses still succeed if the
 contract is not configured, Foundry is unavailable, or the RPC call fails.
 """
 
+import os
 import re
+import shutil
 import subprocess
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Optional
 
 from config import settings
 from models.schemas import AllocationItem
+
+
+def _resolve_cast_binary() -> Optional[str]:
+    """Find the cast binary, checking PATH first, then common Foundry locations."""
+    found = shutil.which("cast")
+    if found:
+        return found
+    foundry_default = Path.home() / ".foundry" / "bin" / "cast"
+    if foundry_default.is_file() and os.access(foundry_default, os.X_OK):
+        return str(foundry_default)
+    return None
 
 
 @dataclass(frozen=True)
@@ -34,9 +48,16 @@ def record_allocation_onchain(allocation: AllocationItem) -> OnchainWriteResult:
             error="PHAROS_PRIVATE_KEY is not configured.",
         )
 
+    cast_bin = _resolve_cast_binary()
+    if not cast_bin:
+        return OnchainWriteResult(
+            status="failed",
+            error="cast command not found. Install Foundry: https://getfoundry.sh",
+        )
+
     apy_bps = round(allocation.apy * 100)
     command = [
-        "cast",
+        cast_bin,
         "send",
         settings.AGENTFOS_CONTRACT_ADDRESS,
         "allocate(string,uint256,uint256)",
